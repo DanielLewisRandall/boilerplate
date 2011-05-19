@@ -113,9 +113,23 @@ describe UsersController do
 				:content => "Sign up")
     end
   
+		it "should not be available to signed-in users" do
+      @user = Factory(:user)
+      test_sign_in(@user)
+			get 'new'
+			response.should redirect_to(users_path)
+    end
+  
 	end
 	
   describe "POST 'create'" do
+  
+		it "should not be available to signed-in users" do
+      @user = Factory(:user)
+      test_sign_in(@user)
+			post :create
+			response.should redirect_to(users_path)
+    end
 
     describe "failure" do
 

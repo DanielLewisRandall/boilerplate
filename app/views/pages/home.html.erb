@@ -1,3 +1,7 @@
 <h1>Sample Application Home Page</h1>
 
+<% if signed_in? %>
+Home Content
+<% else %>
 <%= link_to "Sign up", signup_path, :class => "signup_button round" %>
+<% end %>

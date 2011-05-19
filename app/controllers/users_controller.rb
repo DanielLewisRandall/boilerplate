@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   
 	before_filter :authenticate,  :only => [:index, :edit, :update, :destroy]
+	before_filter :not_signed_in, :only => [:new, :create]
 	before_filter :correct_user,  :only => [:edit, :update]
 	before_filter :admin_user,    :only => :destroy
 	before_filter :not_self,      :only => :destroy
@@ -73,6 +74,13 @@ class UsersController < ApplicationController
 		def not_self
 			#protects admin user from self-deletion:
 			if current_user?(User.find(params[:id]))
+				redirect_to(users_path)
+			end
+		end
+		
+		def not_signed_in
+			#prevents signed in user from accessing new or create:
+			if signed_in?
 				redirect_to(users_path)
 			end
 		end
