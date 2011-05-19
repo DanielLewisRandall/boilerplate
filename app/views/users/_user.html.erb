@@ -3,8 +3,7 @@
   <%= link_to user.name, user %>
 	<% if current_user.admin? %>
 		<% if current_user?(user) %>
-		| (this is you)
-		<% else %>
+			<% else %>
 		| <%= link_to "delete", user, 
 				:method => :delete, 
 				:confirm => "You sure?", 

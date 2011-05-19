@@ -347,4 +347,19 @@ describe UsersController do
 
   end
 
+	describe "DELETE 'destroy' of self" do
+
+    before(:each) do
+      @user = Factory(:user, :email => "admin@example.com", :admin => true)
+			test_sign_in(@user)
+		end
+
+    it "should not destroy the signed-in admin" do
+      lambda do
+         delete :destroy, :id => @user
+      end.should_not change(User, :count).by(-1)
+    end
+
+  end
+
 end
